@@ -66,6 +66,6 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## Acknowledgments
 
-- [OpenAI](https://www.openai.com/) for providing the GPT-3.5-turbo model.
+- [Google](https://ai.google.dev/gemma) for providing the open source gemma 2 model.
 - [PyQt5](https://pypi.org/project/PyQt5/) for the GUI framework.
 - [Aiohttp](https://docs.aiohttp.org/en/stable/) for asynchronous HTTP requests.
