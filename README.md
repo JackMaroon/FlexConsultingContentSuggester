@@ -4,7 +4,7 @@ This application helps financial consultants generate engaging LinkedIn content 
 
 ## Background and Rationale
 
-The idea behind this tool is to empower consultants to explore a wide range of content ideas quickly and efficiently. By expanding the surface area of possibilities, consultants can ensure their LinkedIn content is diverse, engaging, and impactful. This process is inspired by the approach taken by top performers in various fields, who allocate time to explore and refine numerous ideas before presenting the best options.
+The idea behind this tool is to empower financial consultants to explore a wide range of content ideas quickly and efficiently. By expanding the surface area of possibilities, consultants can ensure their LinkedIn content is diverse, engaging, and impactful. This process is inspired by the approach taken by top performers in various fields, who allocate time to explore and refine numerous ideas before presenting the best options.
 
 ## Features
 
