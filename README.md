@@ -8,7 +8,7 @@ The idea behind this tool is to empower financial consultants to explore a wide 
 
 ## Features
 
-- **AI-Generated Content**: Uses a locally hosted AI model by default. It can be configured to use any AI model, including OpenAI's GPT-3.5-turbo, to generate LinkedIn posts based on specified themes and content types.
+- **AI-Generated Content**: Uses a locally hosted AI model by default. It can be configured to use any AI model, including OpenAI's GPT-4o, to generate LinkedIn posts based on specified themes and content types.
 - **Content Calendar**: Automatically generates a content calendar with posts scheduled for several weeks.
 - **Customizable Inputs**: Users can specify the start date and the number of weeks for the content calendar.
 - **CSV Export**: Save the generated content calendar to a CSV file.
