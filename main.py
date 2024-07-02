@@ -62,8 +62,6 @@ def post_process_content(content, theme, content_type):
     content = content.split("LinkedIn post:")[-1].strip()
 
     # Truncate to 200 characters if longer
-    if len(content) > 200:
-        content = content[:197] + "..."
 
     # Ensure the theme is mentioned
     if theme.lower() not in content.lower():
@@ -72,9 +70,6 @@ def post_process_content(content, theme, content_type):
     # Add hashtags
     content += f" #{theme.replace(' ', '')} #{content_type.replace(' ', '')}"
 
-    # Check for key components
-    if '?' not in content and '!' not in content:
-        content = f"🤔 {content}"  # Add an attention-grabbing emoji if no question/exclamation
 
     if 'http' not in content and 'link' not in content.lower():
         content += " Learn more: [link]"  # Add a generic CTA if none exists
