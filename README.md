@@ -2,6 +2,10 @@
 
 This application helps financial consultants generate engaging LinkedIn content using AI. The tool uses a locally hosted model by default but can be configured to use any AI model, including OpenAI's. It generates professional and relevant posts based on specified themes and content types, allows users to generate a content calendar, and saves the generated content to a CSV file.
 
+## Background and Rationale
+
+The idea behind this tool is to empower consultants to explore a wide range of content ideas quickly and efficiently. By expanding the surface area of possibilities, consultants can ensure their LinkedIn content is diverse, engaging, and impactful. This process is inspired by the approach taken by top performers in various fields, who allocate time to explore and refine numerous ideas before presenting the best options.
+
 ## Features
 
 - **AI-Generated Content**: Uses a locally hosted AI model by default. It can be configured to use any AI model, including OpenAI's GPT-3.5-turbo, to generate LinkedIn posts based on specified themes and content types.
@@ -60,12 +64,10 @@ This application helps financial consultants generate engaging LinkedIn content 
 
 Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
 
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
 ## Acknowledgments
 
 - [Google](https://ai.google.dev/gemma) for providing the open source gemma 2 model.
 - [PyQt5](https://pypi.org/project/PyQt5/) for the GUI framework.
 - [Aiohttp](https://docs.aiohttp.org/en/stable/) for asynchronous HTTP requests.
+
+- 
