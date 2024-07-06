@@ -3,6 +3,7 @@ import random
 import csv
 from datetime import datetime, timedelta
 import requests
+from bs4 import BeautifulSoup
 from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QLabel, QLineEdit, QTableWidget, QTableWidgetItem, QFileDialog, QMessageBox
 from PyQt5.QtCore import Qt
 
@@ -23,6 +24,9 @@ content_types = [
     "Client Testimonial", "Market Update", "Tips and Tricks", "Book Recommendation"
 ]
 
+# Define global variables
+headline_counter = 0
+
 def query(prompt):
     payload = {
         "model": "gpt-3.5-turbo",
@@ -37,14 +41,26 @@ def query(prompt):
     return response.json()
 
 def generate_local_ai_content_idea(theme, content_type):
-    prompt = f"""Generate a LinkedIn post for a financial consultant.
-    Theme: {theme}
-    Content Type: {content_type}
-    The post should include:
-    1. An attention-grabbing opening
-    2. A key insight or tip related to {theme}
-    3. A call-to-action
-    Keep the post concise and professional, suitable for LinkedIn."""
+    global headline_counter, top_headlines
+    if theme == "Industry News" and headline_counter < len(top_headlines):
+        prompt = f"""Generate a LinkedIn post for a financial consultant.
+        Theme: {top_headlines[headline_counter]}
+        Content Type: {content_type}
+        The post should include:
+        1. An attention-grabbing opening
+        2. A key insight or tip related to {theme}
+        3. A call-to-action
+        Keep the post concise and professional, suitable for LinkedIn."""
+        headline_counter += 1
+    else:
+        prompt = f"""Generate a LinkedIn post for a financial consultant.
+        Theme: {theme}
+        Content Type: {content_type}
+        The post should include:
+        1. An attention-grabbing opening
+        2. A key insight or tip related to {theme}
+        3. A call-to-action
+        Keep the post concise and professional, suitable for LinkedIn."""
 
     try:
         output = query(prompt)
@@ -61,15 +77,12 @@ def post_process_content(content, theme, content_type):
     # Remove any text before the actual content (if any)
     content = content.split("LinkedIn post:")[-1].strip()
 
-    # Truncate to 200 characters if longer
-
     # Ensure the theme is mentioned
     if theme.lower() not in content.lower():
         content = f"{theme}: " + content
 
     # Add hashtags
     content += f" #{theme.replace(' ', '')} #{content_type.replace(' ', '')}"
-
 
     if 'http' not in content and 'link' not in content.lower():
         content += " Learn more: [link]"  # Add a generic CTA if none exists
@@ -133,6 +146,17 @@ class ContentSuggesterApp(QMainWindow):
         self.layout.addWidget(self.save_button)
 
     def generate_calendar(self):
+        global top_headlines
+
+        # Replace 'your_api_key' with your actual NewsAPI key
+        top_headlines = get_top_headlines_cnbc()
+
+        # Save the top 30 headlines to a global list
+
+        print("Top 30 News Headlines of the Day:")
+        for i, headline in enumerate(top_headlines, 1):
+            print(f"{i}. {headline}")
+
         try:
             start_date = datetime.strptime(self.start_date_input.text(), "%Y-%m-%d").date()
             num_weeks = int(self.num_weeks_input.text())
@@ -175,6 +199,28 @@ class ContentSuggesterApp(QMainWindow):
                 QMessageBox.information(self, "Success", f"Calendar saved to {file_path}")
             except Exception as e:
                 QMessageBox.critical(self, "Error", f"Failed to save file: {str(e)}")
+
+def get_top_headlines_cnbc():
+    url = "https://www.cnbc.com/business/"
+    response = requests.get(url)
+
+    if response.status_code != 200:
+        print(f"Error: Unable to fetch the website, status code: {response.status_code}")
+        return []
+
+    soup = BeautifulSoup(response.content, "html.parser")
+    headlines = []
+
+    for item in soup.find_all('a', class_='Card-title'):
+        headline = item.text.strip()
+        if headline:
+            headlines.append(headline)
+
+
+    return headlines[:30]  # Return top 30 headlines
+
+# Example usage
+top_headlines = []
 
 def main():
     app = QApplication(sys.argv)
